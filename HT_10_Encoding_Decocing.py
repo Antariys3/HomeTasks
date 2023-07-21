@@ -8,4 +8,3 @@ print("Кодировка Latin1:", text_latin1)
 
 text_str = text_latin1.decode("Latin1")
 print("Декодированый результат из Latin1:", text_str)
-print()
