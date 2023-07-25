@@ -9,7 +9,7 @@ class Truck(Auto):
 
     def move(self):
         print("attention")
-        move_auto = super().move()
+        super().move()
 
     def load(self):
         time.sleep(1)
@@ -23,7 +23,7 @@ class Car(Auto):
         self.max_speed = max_speed
 
     def move(self):
-        move_auto = super().move()
+        super().move()
         print("max speed is", self.max_speed)
 
 
