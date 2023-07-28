@@ -21,7 +21,7 @@ print(String('New') + 77)
 print(String('New') + True)
 print(String('New') + ['s', ' ', 23])
 print(String('New') + None)
-print("-" * 45)
+print("-" * 50)
 
 print(String('New bala7nce') - 7)
 print(String('New balance') - 'bal')
