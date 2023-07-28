@@ -1,8 +1,6 @@
 class String(str):
 
     def __add__(self, other):
-        if str(self).isdigit() and str(other).isdigit():
-            return int(str(self) + str(other))
         return str(self) + str(other)
 
     def __sub__(self, other):
@@ -14,8 +12,7 @@ class String(str):
 
 
 print(String('New') + String(890))
-print(String(1234) + 5678, end=" ")
-print(" -->", type(String(1234) + 5678))
+print(String(1234) + 5678)
 print(String('New') + 'castle')
 print(String('New') + 77)
 print(String('New') + True)
