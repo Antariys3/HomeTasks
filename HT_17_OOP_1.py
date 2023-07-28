@@ -1,16 +1,16 @@
 
 class Auto:
-    def __init__(self, brand, age, mark, cоlor="white", weight=1600):
+    def __init__(self, brand, age, mark, color="white", weight=1600):
         self.brand = brand
         self.age = age
-        self.cоlor = cоlor
+        self.color = color
         self.mark = mark
         self.weight = weight
 
     def move(self):
         print("move")
 
-    def bitthday(self):
+    def birthday(self):
         self.age += 1
 
     def stop(self):
