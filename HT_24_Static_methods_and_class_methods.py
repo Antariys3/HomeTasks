@@ -7,7 +7,7 @@ class Car:
         self.model = model
         self.year = year
         self.color = color
-        self.fuel_type = Car.is_valid_fuel_type(fuel_type)
+        self.fuel_type = Car.is_valid_fuel_type(fuel_type, Car.FUEL_TYPES)
 
         Car.COLORS = list(set(Car.COLORS + [color]))
         Car.NUMBER_OF_CARS += 1
@@ -15,7 +15,7 @@ class Car:
         self.number = Car.NUMBER_OF_CARS
 
     @staticmethod
-    def is_valid_fuel_type(fuel_type):
+    def is_valid_fuel_type(fuel_type, FUEL_TYPES):
         if fuel_type in Car.FUEL_TYPES:
             return fuel_type
         else:
