@@ -8,10 +8,11 @@ class Car:
         self.year = year
         self.color = color
         self.fuel_type = Car.is_valid_fuel_type(fuel_type)
-        self.number = Car.NUMBER_OF_CARS + 1
 
         Car.COLORS = list(set(Car.COLORS + [color]))
         Car.NUMBER_OF_CARS += 1
+
+        self.number = Car.NUMBER_OF_CARS
 
     @staticmethod
     def is_valid_fuel_type(fuel_type):
