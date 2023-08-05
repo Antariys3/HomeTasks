@@ -43,13 +43,22 @@ def create_new_file():
 
 def save_append():
     try:
+        list_temp = []
         workbook = openpyxl.load_workbook("Data.xlsx")
         sheet = workbook.active
+        list_excel = list(sheet.iter_rows(min_row=2, values_only=True))
+        sheet.delete_rows(2, sheet.max_row)
         list_tree = list(treeview.get_children())
         print(list_tree)
         for item in list_tree:
             values = treeview.item(item, 'values')
-            sheet.append(values)
+            list_temp.append(values)
+        list_excel.extend(list_temp)
+        list_excel = set(list_excel) - set(deleted_users)
+        deleted_users.clear()
+
+        for item in list_excel:
+            sheet.append(item)
 
         workbook.save("Data.xlsx")
     except FileNotFoundError:
@@ -244,11 +253,11 @@ def insert_row():
         exceptions()
 
         val_first_name = first_name.get()
-        val_first_name = " " if val_first_name == "Имя*" else val_first_name
+        val_first_name = " " if val_first_name == "Имя*" or val_first_name == "" else val_first_name
         val_last_name = last_name.get()
-        val_last_name = " " if val_last_name == "Фамилия" else val_last_name
+        val_last_name = " " if val_last_name == "Фамилия" or val_last_name == "" else val_last_name
         val_surname = surname.get()
-        val_surname = " " if val_surname == "Отчество" else val_surname
+        val_surname = " " if val_surname == "Отчество" or val_surname == "" else val_surname
         val_gender = gender.get()
         # дата рождения
         val_date_birth = birth_date()
@@ -305,9 +314,14 @@ def search_results():
 
 
 def delete_selected():
-    selected_item = treeview.selection()
-    if selected_item:
-        treeview.delete(selected_item)
+    selected_items = treeview.selection()
+    if selected_items:
+        for item in selected_items:
+            values = treeview.item(item, 'values')
+            deleted_users.append(values)
+            treeview.delete(item)
+        print(deleted_users)
+
 
 
 win = tk.Tk()
@@ -324,7 +338,7 @@ win.minsize(400, 350)
 style = ttk.Style(win)
 style.theme_use("alt")
 
-#  меню Файл
+#  меню кнопки Файл
 menubar = tk.Menu(win)
 win.config(menu=menubar)
 setting_menu = tk.Menu(menubar, tearoff=0)
@@ -346,6 +360,7 @@ month_list_2 = {"Январь": 1, "Февраль": 2, "Март": 3, "Апре
 cols = ("Имя", "Фамилия", "Отчество", "Пол", "Дата рождения", "Дата окончания",
         "Возраст")
 data_today = date.today()
+deleted_users = []
 
 # Рамка с лева, Ввод пользователя
 frame = ttk.Frame(win)
