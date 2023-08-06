@@ -65,25 +65,6 @@ def save_append():
         showinfo("Ошибка ввода", "Файл для записи не создан, создайте файл")
 
 
-def save_overwrite():
-    work_book = openpyxl.Workbook()
-    work_book.create_sheet('Пользователи', index=0)
-    sheet = work_book['Пользователи']
-    sheet.append(cols)
-
-    bold_font = Font(bold=True)
-    for cell in sheet[1]:
-        cell.font = bold_font
-
-    list_tree = list(treeview.get_children())
-    print(list_tree)
-    for item in list_tree:
-        values = treeview.item(item, 'values')
-        sheet.append(values)
-
-    work_book.save("Data.xlsx")
-
-
 def load_from_disk():
     try:
         workbook = openpyxl.load_workbook("Data.xlsx")
@@ -323,7 +304,6 @@ def delete_selected():
         print(deleted_users)
 
 
-
 win = tk.Tk()
 
 # Название и иконка
@@ -343,8 +323,7 @@ menubar = tk.Menu(win)
 win.config(menu=menubar)
 setting_menu = tk.Menu(menubar, tearoff=0)
 setting_menu.add_command(label="Создать новый файл", command=create_new_file)
-setting_menu.add_command(label="Сохранить (дозапись)", command=save_append)
-setting_menu.add_command(label="Сохранить (переписать)", command=save_overwrite)
+setting_menu.add_command(label="Сохранить", command=save_append)
 setting_menu.add_command(label="Загрузить с диска", command=load_from_disk)
 setting_menu.add_command(label="Выход", command=win.destroy)
 menubar.add_cascade(label="Файл", menu=setting_menu)
@@ -502,7 +481,7 @@ treeview = ttk.Treeview(tree_frame, show="headings",
                         yscrollcommand=tree_scroll.set, columns=cols, height=17)
 treeview.column("Имя", width=80)
 treeview.column("Фамилия", width=80)
-treeview.column("Отчество", width=90)
+treeview.column("Отчество", width=95)
 treeview.column("Пол", width=80)
 treeview.column("Дата рождения", width=100)
 treeview.column("Дата окончания", width=100)
