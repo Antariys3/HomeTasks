@@ -70,8 +70,9 @@ def load_from_disk():
         workbook = openpyxl.load_workbook("Data.xlsx")
         sheet = workbook.active
         list_excel = list(sheet.values)
+        sorted_list_excel = sorted(list_excel[1:], key=lambda x: x[0])
 
-        for value_tuple in list_excel[1:]:
+        for value_tuple in sorted_list_excel[1:]:
             treeview.insert('', tk.END, values=value_tuple)
     except FileNotFoundError:
         showinfo("Ошибка ввода", "Файл отсутствует, сначала сохраните файл")
@@ -306,17 +307,17 @@ def delete_selected():
 
 win = tk.Tk()
 
-# Название и иконка
+# Название и иконки
 # иконка работает только у меня, по этому код ниже закомментирован
-# photo = tk.PhotoImage(file='icon_hillel.png')
-# win.iconphoto(False, photo)
+photo = tk.PhotoImage(file='icon_hillel.png')
+win.iconphoto(False, photo)
 win.config(bg="#D8F7F5")
 win.title("База данных")
 win.minsize(400, 350)
 
 # тема
 style = ttk.Style(win)
-style.theme_use("alt")
+style.theme_use("vista")
 
 #  меню кнопки Файл
 menubar = tk.Menu(win)
@@ -365,7 +366,7 @@ surname.grid(row=2, column=0, padx=5, pady=(0, 5), sticky="ew")
 
 # Рамка выберите пол
 frame_gender = ttk.LabelFrame(frame, text="Выберите пол")
-frame_gender.grid(row=1, column=0, padx=10, pady=5)
+frame_gender.grid(row=1, column=0, sticky="we", padx=10, pady=5)
 
 # выберите пол
 gender = tk.StringVar()
